@@ -664,6 +664,18 @@ main.newTask
 main.selfDelete
 ```
 
+### YARA
+
+Для unpacked `Updater.exe` добавлено отдельное campaign-specific правило:
+
+```text
+yara/cheater_to_salatstealer_campaign.yar
+```
+
+Это не дубль generic-правил про браузерные папки, SQL-запросы или wallet extension ID. Правило цепляется за то, что досталось именно из этого образца: набор Go-символов `main.getEp`, `main.tryTonResolve`, `main.staticinstall`, `main.selfDelete`, steal/RAT-функции и prefix'ы зашифрованных C2 blob'ов.
+
+Plaintext-домены и `Global\WEBR_CLMBI2WZW32H` в условие не добавлялись: домены в файле лежат зашифрованными, а mutex подтверждён через sandbox/runtime-след, но не как обычная ASCII-строка внутри unpacked payload.
+
 ---
 
 ## Проверка и защита
