@@ -676,6 +676,8 @@ yara/cheater_to_salatstealer_campaign.yar
 
 Plaintext-домены и `Global\WEBR_CLMBI2WZW32H` в условие не добавлялись: домены в файле лежат зашифрованными, а mutex подтверждён через sandbox/runtime-след, но не как обычная ASCII-строка внутри unpacked payload.
 
+Ограничение честное: `$c2_blob_*` привязаны к этому build/key/nonce. Если оператор пересоберёт payload с новым ключом или nonce, эти byte patterns могут отвалиться. Go symbol ветки тоже зависят от неstripped-сборки; для stripped-варианта добавлена fallback-ветка `path_* + c2_blob_*`, но она всё равно build-specific.
+
 ---
 
 ## Проверка и защита
