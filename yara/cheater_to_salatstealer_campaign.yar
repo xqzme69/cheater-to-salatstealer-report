@@ -9,28 +9,28 @@ rule Windows_Trojan_SalatStealer_CheaterTo_WebRat_Jun2026
         scope = "file"
 
     strings:
-        $net_01 = "main.getEp" ascii
-        $net_02 = "main.getBC" ascii
-        $net_03 = "main.initConnection" ascii
-        $net_04 = "main.changeEndpoint" ascii
-        $net_05 = "main.tryTonResolve" ascii
-        $net_06 = "main.tonResolve" ascii
+        $net_01 = "main.getEp" ascii fullword
+        $net_02 = "main.getBC" ascii fullword
+        $net_03 = "main.initConnection" ascii fullword
+        $net_04 = "main.changeEndpoint" ascii fullword
+        $net_05 = "main.tryTonResolve" ascii fullword
+        $net_06 = "main.tonResolve" ascii fullword
 
-        $steal_01 = "main.Steal" ascii
-        $steal_02 = "main.getChromeLogins" ascii
-        $steal_03 = "main.getChromeCookies" ascii
-        $steal_04 = "main.getGeckoLogins" ascii
-        $steal_05 = "main.getDiscord" ascii
-        $steal_06 = "main.getSteams" ascii
-        $steal_07 = "main.runKeylogger" ascii
+        $steal_01 = "main.Steal" ascii fullword
+        $steal_02 = "main.getChromeLogins" ascii fullword
+        $steal_03 = "main.getChromeCookies" ascii fullword
+        $steal_04 = "main.getGeckoLogins" ascii fullword
+        $steal_05 = "main.getDiscord" ascii fullword
+        $steal_06 = "main.getSteams" ascii fullword
+        $steal_07 = "main.runKeylogger" ascii fullword
 
-        $rat_01 = "main.screenStream" ascii
-        $rat_02 = "main.downloadFile" ascii
-        $rat_03 = "main.executeCommand" ascii
-        $rat_04 = "main.shellCommand" ascii
-        $rat_05 = "main.staticinstall" ascii
-        $rat_06 = "main.newTask" ascii
-        $rat_07 = "main.selfDelete" ascii
+        $rat_01 = "main.screenStream" ascii fullword
+        $rat_02 = "main.downloadFile" ascii fullword
+        $rat_03 = "main.executeCommand" ascii fullword
+        $rat_04 = "main.shellCommand" ascii fullword
+        $rat_05 = "main.staticinstall" ascii fullword
+        $rat_06 = "main.newTask" ascii fullword
+        $rat_07 = "main.selfDelete" ascii fullword
 
         $path_01 = "Clients\\DiscordTokens.txt" ascii
         $path_02 = "Clients\\SteamTokens.txt" ascii
@@ -49,6 +49,7 @@ rule Windows_Trojan_SalatStealer_CheaterTo_WebRat_Jun2026
         (
             (5 of ($net_*) and 5 of ($steal_*) and 3 of ($rat_*)) or
             (4 of ($net_*) and 4 of ($steal_*) and any of ($c2_blob_*)) or
-            (4 of ($net_*) and 3 of ($steal_*) and 2 of ($path_*) and any of ($c2_blob_*))
+            (4 of ($net_*) and 3 of ($steal_*) and 2 of ($path_*) and any of ($c2_blob_*)) or
+            (3 of ($path_*) and 2 of ($c2_blob_*))
         )
 }
